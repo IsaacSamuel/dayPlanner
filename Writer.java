@@ -6,10 +6,15 @@ import java.util.Arrays;
 public class Writer {
 	public static void addEvent(int month, int day, int year, File file) {
 		Scanner kb = new Scanner(System.in);
-		Scanner scanner = new Scanner(file).useDelimiter("\n");
 
 		try {
-			String line = scanner.nextLine();
+			FileWriter fileWriter = new FileWriter(file, true);
+			BufferedWriter writer = new BufferedWriter(fileWriter);
+
+			FileReader fileReader = new FileReader(file);
+			BufferedReader reader = new BufferedReader(fileReader);
+			String line = reader.readLine();
+			Boolean eventExistsAlready = false;
 
 
 			System.out.println();
@@ -20,27 +25,30 @@ public class Writer {
 			System.out.println("Give a short description of the event. (ex: buy groceries)");
 			String eventDescription = kb.nextLine();
 
+			String event = eventTime[0] + ":" + eventTime[1] + " " + eventDescription;
+
 			//Logic to place the schedule correctly in calendar.txt
-			while (line != null) {
-				line = scanner.readLine();
+			while (line != null && !(eventExistsAlready)) {
+				line = reader.readLine();
 				if (line ==  null){
 					//if date is not found
-
+					writer.newLine();
+					writer.write(Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year));
+					writer.newLine();
+					writer.write(event);
+					writer.newLine();
+					writer.flush();
 				}
 				else if (line.equals((Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year)))) {
-					int tempHour = Integer.parseInt(eventTime[0]);
-					int tempMinute = Integer.parseInt(eventTime[1]);
-
-					line = scanner.readLine();
-					int hour = Character.getNumericValue(line.charAt(0));
-					int minute = Character.getNumericValue(line.charAt(2))*10 + Character.getNumericValue(line.CharAt(3));
-
-					if (line.equals("")) {
-
+					line = reader.readLine();
+					if (line.equals(event)) {
+						System.out.println("That event already exists!");
+						eventExistsAlready = true;
 					}
 				}
 			}
-			scanner.close();
+			reader.close();
+			writer.close();
 
 			System.out.println();
 			Reader.printDay(month, day, year, file);
