@@ -1,4 +1,3 @@
-import java.util.Calendar;
 import java.util.Scanner;
 import java.io.*;
 import java.util.Arrays;
@@ -45,22 +44,42 @@ public class Planner {
 			String command[] = kb.nextLine().split(" ", -2);
 
 			switch (command[0]) {
-				case "today": Reader.printToday(file);
+				case "today": 
+					Reader.printToday(file);
 					break;
-				case "help": help();
+				case "help": 
+					help();
 					break;
-				case "exit": running = false;
+				case "exit": 
+					running = false;
 					break;
-				case "week": Reader.printWeek(file);
+				case "week": 
+					Reader.printWeek(file);
 					break;
-				case "print": Reader.printDay(Integer.parseInt(command[1]), Integer.parseInt(command[2]), Integer.parseInt(command[3]), file);
+				case "print": 
+					Reader.printDay(Integer.parseInt(command[1]), Integer.parseInt(command[2]), Integer.parseInt(command[3]), file);
 					break;
+				case "add": 
+					Writer.addEvent(Integer.parseInt(command[1]), Integer.parseInt(command[2]), Integer.parseInt(command[3]), file);
+					break;
+				case "remove":
+					break;
+				case "recurrent":
+					if (command[1].equals("add")) {
+
+						break;
+					}
+					else if (command[1].equals("delete")) {
+
+						break;
+					}
+					else {
+						break;
+					}
 				
 				default: 
 					break;
 			}
-
-			//Read a certain day's/days' schedule(s)
 			//Add/Remove a certain day's event
 			//Add a recurrent event
 			//Remove a reccurent event

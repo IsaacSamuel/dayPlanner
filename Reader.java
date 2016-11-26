@@ -1,9 +1,7 @@
 import java.util.Calendar;
-import java.util.Scanner;
 import java.io.*;
 
 public class Reader {
-	Scanner kb = new Scanner(System.in);
 
 
 		public static void printDay(int month, int day, int year, File file) {
@@ -18,8 +16,8 @@ public class Reader {
 
 
 			while (line != null) {
-				if (line.equals((Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year)))) {
-					while (!(line.equals("")) && line != null) {
+				if (line.equals(Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year))) {
+					while ( line != null && !(line.equals(""))) {
 						System.out.println(line);
 						line = reader.readLine();
 					}
