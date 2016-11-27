@@ -70,7 +70,6 @@ public class Writer {
 				line = reader.readLine();
 				if (line ==  null){
 					//if date is not found
-					writer.newLine();
 					writer.write(Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year));
 					writer.newLine();
 					writer.write(event);
@@ -182,13 +181,77 @@ public class Writer {
 			while( setCalendar.compareTo(calendar) >= 0) {
 				addEvent(calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR), file, event);
 				calendar.add(Calendar.DATE, 7);
-				System.out.println("blah blah blah");
 
 			}
 		}
 
 		catch (IOException ex) {
 			ex.printStackTrace();
+		}
+
+	}
+
+	public static void deleteEvent(int month, int day, int year, String event, File file) {
+			try {
+				FileReader fileReader = new FileReader(file);
+				BufferedReader reader = new BufferedReader(fileReader);
+
+				RandomAccessFile accessor = new RandomAccessFile (file, "rw");
+
+				boolean running = true;
+
+				long position = 0;
+				long linelength = 0;
+
+				
+
+
+				while (running == true) {
+
+					String line = reader.readLine();
+					System.out.println(line);
+
+					if (line == null) {
+						running = false;
+
+					} 
+					else if (line.equals((Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year)))) {
+						linelength = line.getBytes().length + 1;
+						line = reader.readLine();
+						linelength += line.getBytes().length + 1;
+
+						if (line.equals(event) ) {
+							long end = position + linelength;
+							while (position < end-2) {
+								accessor.seek(position);
+								accessor.write(' ');
+								position++;
+							}
+							accessor.seek(position);
+							accessor.writeBytes(System.getProperty("line.separator"));
+							running = false;
+						}
+					}
+					else {
+						linelength = line.getBytes().length + 1;
+						line = reader.readLine();
+						System.out.println(line);
+						linelength += line.getBytes().length + 1;
+					}
+					position += (linelength);
+					System.out.println(position);
+					System.out.println(linelength);
+				}
+
+			reader.close();
+
+		}
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+
 		}
 
 	}

@@ -41,7 +41,7 @@ public class Planner {
 		while (running) {
 			System.out.println("Please enter a command. Type help for options.");
 			//Wait for user input
-			String command[] = kb.nextLine().split(" ", -2);
+			String command[] = kb.nextLine().split("_", -2);
 
 			switch (command[0]) {
 				case "today": 
@@ -63,6 +63,7 @@ public class Planner {
 					Writer.addEvent(Integer.parseInt(command[1]), Integer.parseInt(command[2]), Integer.parseInt(command[3]), file);
 					break;
 				case "remove":
+						Writer.deleteEvent(Integer.parseInt(command[1]), Integer.parseInt(command[2]), Integer.parseInt(command[3]), command[4], file);
 					break;
 				case "recurrent":
 					if (command[1].equals("add")) {
