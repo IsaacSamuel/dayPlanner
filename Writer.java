@@ -209,7 +209,6 @@ public class Writer {
 				while (running == true) {
 
 					String line = reader.readLine();
-					System.out.println(line);
 
 					if (line == null) {
 						running = false;
@@ -235,12 +234,9 @@ public class Writer {
 					else {
 						linelength = line.getBytes().length + 1;
 						line = reader.readLine();
-						System.out.println(line);
 						linelength += line.getBytes().length + 1;
 					}
 					position += (linelength);
-					System.out.println(position);
-					System.out.println(linelength);
 				}
 
 			reader.close();
@@ -254,6 +250,64 @@ public class Writer {
 
 		}
 
+	}
+
+	public static void clear(int month, int day, int year, File file) {
+		boolean fileEnd = false;	
+		try {
+
+			while (!fileEnd) {
+				long position = 0;
+				long linelength = 0;
+				FileReader fileReader = new FileReader(file);
+				BufferedReader reader = new BufferedReader(fileReader);
+				boolean running = true;
+
+				RandomAccessFile accessor = new RandomAccessFile (file, "rw");
+
+				while (running == true) {
+
+					String line = reader.readLine();
+
+					if (line == null) {
+						running = false;
+						fileEnd = true;
+					} 
+					else if (line.equals((Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year)))) {
+						linelength = line.getBytes().length + 1;
+						line = reader.readLine();
+						linelength += line.getBytes().length + 1;
+
+						long end = position + linelength;
+						while (position < end-2) {
+							accessor.seek(position);
+							accessor.write(' ');
+							position++;
+						}
+						accessor.seek(position);
+						accessor.writeBytes(System.getProperty("line.separator"));
+						running = false;
+					}
+					else {
+						linelength = line.getBytes().length + 1;
+						line = reader.readLine();
+						linelength += line.getBytes().length + 1;
+					}
+					position += (linelength);
+				}
+				reader.close();
+				accessor.close();
+				System.out.println("blue");
+			}
+		}
+
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+
+		}
 	}
 
 	public static String scheduleEvent() {

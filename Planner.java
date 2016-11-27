@@ -65,6 +65,8 @@ public class Planner {
 				case "remove":
 						Writer.deleteEvent(Integer.parseInt(command[1]), Integer.parseInt(command[2]), Integer.parseInt(command[3]), command[4], file);
 					break;
+				case "clear":
+						Writer.clear(Integer.parseInt(command[1]), Integer.parseInt(command[2]), Integer.parseInt(command[3]), file);
 				case "recurrent":
 					if (command[1].equals("add")) {
 							Writer.addRecurrentEvent(Integer.parseInt(command[2]), Integer.parseInt(command[3]), Integer.parseInt(command[4]), command[5], file);
@@ -94,6 +96,7 @@ public class Planner {
 		System.out.println("To print this week's schedule, enter 'week'.");
 		System.out.println("To print this a certain day's schedule, enter that day as 'print MM DD YYYY'.");
 		System.out.println("To print a recurrent event, print 'recurrent add' and the date you'd like the reccurrence to stop and the the day you want it to recur ex:'reccurrent add MM DD YYYY Monday'");
+		System.out.println("To clear a day's schedule, type 'clear' and the date you want to clear (ex. clear 12 22 2016)");
 		System.out.println();
 	}
 }
