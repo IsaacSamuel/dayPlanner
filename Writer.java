@@ -26,7 +26,6 @@ public class Writer {
 					writer.write(Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year));
 					writer.newLine();
 					writer.write(event);
-					writer.newLine();
 					writer.flush();
 				}
 				else if (line.equals((Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year)))) {
