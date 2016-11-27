@@ -66,7 +66,7 @@ public class Planner {
 					break;
 				case "recurrent":
 					if (command[1].equals("add")) {
-
+							Writer.addRecurrentEvent(Integer.parseInt(command[2]), Integer.parseInt(command[3]), Integer.parseInt(command[4]), command[5], file);
 						break;
 					}
 					else if (command[1].equals("delete")) {
@@ -80,8 +80,7 @@ public class Planner {
 				default: 
 					break;
 			}
-			//Add/Remove a certain day's event
-			//Add a recurrent event
+			//Remove a certain day's event
 			//Remove a reccurent event
 		}
 
@@ -93,6 +92,7 @@ public class Planner {
 		System.out.println("To print today's schedule, enter 'today'.");
 		System.out.println("To print this week's schedule, enter 'week'.");
 		System.out.println("To print this a certain day's schedule, enter that day as 'print MM DD YYYY'.");
+		System.out.println("To print a recurrent event, print 'recurrent add' and the date you'd like the reccurrence to stop and the the day you want it to recur ex:'reccurrent add MM DD YYYY Monday'");
 		System.out.println();
 	}
 }
