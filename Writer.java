@@ -191,6 +191,122 @@ public class Writer {
 
 	}
 
+
+	public static void clear(int month, int day, int year, File file) {
+		boolean fileEnd = false;	
+		try {
+
+			while (!fileEnd) {
+				long position = 0;
+				long linelength = 0;
+				FileReader fileReader = new FileReader(file);
+				BufferedReader reader = new BufferedReader(fileReader);
+				boolean running = true;
+
+				RandomAccessFile accessor = new RandomAccessFile (file, "rw");
+
+				while (running == true) {
+
+					String line = reader.readLine();
+
+					if (line == null) {
+						running = false;
+						fileEnd = true;
+					} 
+					else if (line.equals((Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year)))) {
+						linelength = line.getBytes().length + 1;
+						line = reader.readLine();
+						linelength += line.getBytes().length + 1;
+
+						long end = position + linelength;
+						while (position < end-2) {
+							accessor.seek(position);
+							accessor.write(' ');
+							position++;
+						}
+						accessor.seek(position);
+						accessor.writeBytes(System.getProperty("line.separator"));
+						running = false;
+					}
+					else {
+						linelength = line.getBytes().length + 1;
+						line = reader.readLine();
+						linelength += line.getBytes().length + 1;
+					}
+					position += (linelength);
+				}
+				reader.close();
+				accessor.close();
+				System.out.println("blue");
+			}
+		}
+
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+
+		}
+	}
+
+	public static void deleteEvent(String event, File file) {
+		boolean fileEnd = false;
+
+		try {
+
+			while (!fileEnd) {
+				FileReader fileReader = new FileReader(file);
+				BufferedReader reader = new BufferedReader(fileReader);
+
+				RandomAccessFile accessor = new RandomAccessFile (file, "rw");
+
+				boolean running = true;
+
+				long position = 0;
+				long linelength = 0;
+
+
+				while (running == true) {
+
+					String line = reader.readLine();
+
+					if (line == null) {
+						running = false;
+						fileEnd = true;
+					} 
+					else if (line.equals(event) ) {
+						linelength += line.getBytes().length + 1;
+						long end = position + linelength;
+						while (position < end-2) {
+							accessor.seek(position);
+							accessor.write(' ');
+							position++;
+						}
+						accessor.seek(position);
+						accessor.writeBytes(System.getProperty("line.separator"));
+						running = false;
+					}
+					else {
+						position += (linelength);
+						linelength = line.getBytes().length + 1;
+					}
+				}
+
+				reader.close();
+
+			}
+		}
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+
+		}
+	}
+
+
 	public static void deleteEvent(int month, int day, int year, String event, File file) {
 			try {
 				FileReader fileReader = new FileReader(file);
@@ -250,64 +366,6 @@ public class Writer {
 
 		}
 
-	}
-
-	public static void clear(int month, int day, int year, File file) {
-		boolean fileEnd = false;	
-		try {
-
-			while (!fileEnd) {
-				long position = 0;
-				long linelength = 0;
-				FileReader fileReader = new FileReader(file);
-				BufferedReader reader = new BufferedReader(fileReader);
-				boolean running = true;
-
-				RandomAccessFile accessor = new RandomAccessFile (file, "rw");
-
-				while (running == true) {
-
-					String line = reader.readLine();
-
-					if (line == null) {
-						running = false;
-						fileEnd = true;
-					} 
-					else if (line.equals((Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year)))) {
-						linelength = line.getBytes().length + 1;
-						line = reader.readLine();
-						linelength += line.getBytes().length + 1;
-
-						long end = position + linelength;
-						while (position < end-2) {
-							accessor.seek(position);
-							accessor.write(' ');
-							position++;
-						}
-						accessor.seek(position);
-						accessor.writeBytes(System.getProperty("line.separator"));
-						running = false;
-					}
-					else {
-						linelength = line.getBytes().length + 1;
-						line = reader.readLine();
-						linelength += line.getBytes().length + 1;
-					}
-					position += (linelength);
-				}
-				reader.close();
-				accessor.close();
-				System.out.println("blue");
-			}
-		}
-
-		catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-
-		}
 	}
 
 	public static String scheduleEvent() {

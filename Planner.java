@@ -73,7 +73,7 @@ public class Planner {
 						break;
 					}
 					else if (command[1].equals("delete")) {
-
+							Writer.deleteEvent(command[2], file);
 						break;
 					}
 					else {
