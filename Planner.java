@@ -25,7 +25,13 @@ public class Planner {
 
 			if (create=='y') {
 				try {
+
 					file.createNewFile();
+
+					RandomAccessFile accessor = new RandomAccessFile (file, "rw");
+					accessor.seek(0);
+					accessor.writeBytes(System.getProperty("line.separator"));
+
 				}
 				catch (IOException e) {
 					e.printStackTrace();
