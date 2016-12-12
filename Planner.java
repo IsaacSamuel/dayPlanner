@@ -43,7 +43,7 @@ public class Planner {
 		while (running) {
 			System.out.println("Please enter a command. Type help for options.");
 			//Wait for user input
-			String command[] = kb.nextLine().split("_", -2);
+			String command[] = kb.nextLine().split(" ", -2);
 
 			switch (command[0]) {
 				case "today": 
@@ -75,12 +75,14 @@ public class Planner {
 					Writer.clear(month, Integer.parseInt(command[2]), Integer.parseInt(command[3]), file);
 				case "recurrent":
 					if (command[1].equals("add")) {
-							month = monthFormatter(command[1]);
+							month = monthFormatter(command[2]);
 							Writer.addRecurrentEvent(month, Integer.parseInt(command[3]), Integer.parseInt(command[4]), command[5], file);
 						break;
 					}
 					else if (command[1].equals("delete")) {
-							Writer.deleteEvent(command[2], file);
+							System.out.println("Please enter the event you'd like to delete :");
+							String event = kb.nextLine();
+							Writer.deleteEvent(event, file);
 						break;
 					}
 					else {
@@ -98,11 +100,11 @@ public class Planner {
 		System.out.println("To exit, type 'exit'.");
 		System.out.println("To print today's schedule, enter 'today'.");
 		System.out.println("To print this week's schedule, enter 'week'.");
-		System.out.println("To print this a certain day's schedule, enter that day as 'print_MM_DD_YYYY'.");
-		System.out.println("To print a recurrent event, print 'recurrent add' and the date you'd like the reccurrence to stop and the the day you want it to recur ex:'reccurrent_add_MM_DD_YYYY_Monday'");
-		System.out.println("To delete a recurrent event, print 'recurrent delete' and the event you'd like to delete ex:'reccurrent_delete_4:00 groceries'");
-		System.out.println("To clear a day's schedule, type 'clear' and the date you want to clear (ex. clear_12_22_2016)");
-		System.out.println("Commands with parameters are seperated by underscores.");
+		System.out.println("To print this a certain day's schedule, enter that day as 'print MM DD YYYY'.");
+		System.out.println("To add an event to the schedule, type 'add' followed by the date you want it to take place on (ex. 'add MM DD YYYY').");
+		System.out.println("To print a recurrent event, print 'recurrent add' and the date you'd like the reccurrence to stop and the the day you want it to recur ex:'reccurrent add MM DD YYYY Monday'");
+		System.out.println("To delete a recurrent event, print 'recurrent delete'");
+		System.out.println("To clear a day's schedule, type 'clear' and the date you want to clear (ex. clear 12 22 2016)");
 		System.out.println();
 	}
 

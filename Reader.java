@@ -14,9 +14,9 @@ public class Reader {
 			BufferedReader reader = new BufferedReader(fileReader);
 			String line = reader.readLine();
 
-
 			while (line != null) {
 				if (line.equals(Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year))) {
+					line=reader.readLine();
 					while ( line != null && !(line.equals(""))) {
 						System.out.println(line);
 						line = reader.readLine();

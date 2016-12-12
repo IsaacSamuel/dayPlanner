@@ -23,9 +23,13 @@ public class Writer {
 				if (line ==  null){
 					//if date is not found
 					writer.newLine();
+					writer.newLine();
+					writer.newLine();
 					writer.write(Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year));
 					writer.newLine();
 					writer.write(event);
+					writer.newLine();
+					writer.newLine();
 					writer.flush();
 				}
 				else if (line.equals((Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year)))) {
@@ -168,19 +172,10 @@ public class Writer {
 				calendar.add(Calendar.DATE, 1);
 			}
 
-			System.out.println(calendar.get(Calendar.YEAR));
-			System.out.println(calendar.get(Calendar.MONTH));
-			System.out.println(calendar.get(Calendar.DAY_OF_MONTH));
-
-			System.out.println(setCalendar.get(Calendar.YEAR));
-			System.out.println(setCalendar.get(Calendar.MONTH));
-			System.out.println(setCalendar.get(Calendar.DAY_OF_MONTH));
-
 
 			while( setCalendar.compareTo(calendar) >= 0) {
 				addEvent(calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR), file, event);
 				calendar.add(Calendar.DATE, 7);
-
 			}
 		}
 
@@ -230,13 +225,18 @@ public class Writer {
 					else {
 						linelength = line.getBytes().length + 1;
 						line = reader.readLine();
-						linelength += line.getBytes().length + 1;
+						if (line == null) {
+							running = false;
+							fileEnd = true;
+						} 
+						else {
+							linelength += line.getBytes().length + 1;
+						}
 					}
 					position += (linelength);
 				}
 				reader.close();
 				accessor.close();
-				System.out.println("blue");
 			}
 		}
 
