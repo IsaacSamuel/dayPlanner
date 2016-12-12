@@ -8,6 +8,7 @@ public class Planner {
 		Scanner kb = new Scanner(System.in);
 		File file = new File("calendar.txt");
 		boolean running = true;
+		String event = new String();
 
 		int month;
 
@@ -68,7 +69,9 @@ public class Planner {
 					break;
 				case "remove":
 					month = monthFormatter(command[1]);
-					Writer.deleteEvent(month, Integer.parseInt(command[2]), Integer.parseInt(command[3]), command[4], file);
+					System.out.println("Please enter the event you'd like to delete :");
+					event = kb.nextLine();
+					Writer.deleteEvent(month, Integer.parseInt(command[2]), Integer.parseInt(command[3]), event, file);
 					break;
 				case "clear":
 					month = monthFormatter(command[1]);
@@ -81,7 +84,7 @@ public class Planner {
 					}
 					else if (command[1].equals("delete")) {
 							System.out.println("Please enter the event you'd like to delete :");
-							String event = kb.nextLine();
+							event = kb.nextLine();
 							Writer.deleteEvent(event, file);
 						break;
 					}
@@ -102,7 +105,8 @@ public class Planner {
 		System.out.println("To print this week's schedule, enter 'week'.");
 		System.out.println("To print this a certain day's schedule, enter that day as 'print MM DD YYYY'.");
 		System.out.println("To add an event to the schedule, type 'add' followed by the date you want it to take place on (ex. 'add MM DD YYYY').");
-		System.out.println("To print a recurrent event, print 'recurrent add' and the date you'd like the reccurrence to stop and the the day you want it to recur ex:'reccurrent add MM DD YYYY Monday'");
+		System.out.println("To add a recurrent event, type 'recurrent add' and the date you'd like the reccurrence to stop and the the day you want it to recur ex:'reccurrent add MM DD YYYY Monday'");
+		System.out.println("To delete a singular event, type 'remove'");
 		System.out.println("To delete a recurrent event, print 'recurrent delete'");
 		System.out.println("To clear a day's schedule, type 'clear' and the date you want to clear (ex. clear 12 22 2016)");
 		System.out.println();
