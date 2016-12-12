@@ -106,7 +106,7 @@ public class Planner {
 		System.out.println("To print this a certain day's schedule, enter that day as 'print MM DD YYYY'.");
 		System.out.println("To add an event to the schedule, type 'add' followed by the date you want it to take place on (ex. 'add MM DD YYYY').");
 		System.out.println("To add a recurrent event, type 'recurrent add' and the date you'd like the reccurrence to stop and the the day you want it to recur ex:'reccurrent add MM DD YYYY Monday'");
-		System.out.println("To delete a singular event, type 'remove'");
+		System.out.println("To delete a singular event, type 'remove' followed by the date of the item you'd like to remove (ex 'remove MM DD YYYY'). You will be prompted next to give the event.");
 		System.out.println("To delete a recurrent event, print 'recurrent delete'");
 		System.out.println("To clear a day's schedule, type 'clear' and the date you want to clear (ex. clear 12 22 2016)");
 		System.out.println();
