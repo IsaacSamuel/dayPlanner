@@ -5,6 +5,7 @@ such as commands for adding or deleting an event repeatedly, clearing a day's sc
 for a certain day or week. Schedule is preserved from session to session by writing and reading from a text file.
 
 Features:
+
 -My first ever Java project, written for my final project in my intro programming class.
 
 -Uses object-oriented design principles.
